@@ -1,4 +1,4 @@
-import { GRID_SIZE, OBJECT_TYPE, CLASS_LIST, LEVEL } from "./setup";
+import { GRID_SIZE, CELL_SIZE, OBJECT_TYPE, CLASS_LIST } from "./setup.js";
 
 class GameBoard {
   constructor(DOMGrid) {
@@ -26,6 +26,8 @@ class GameBoard {
       // Add dots
       if (CLASS_LIST[square] === OBJECT_TYPE.DOT) this.dotCount++;
     });
+
+    console.log(this.grid);
   }
 
   static createGameBoard(DOMGrid, level) {
@@ -34,3 +36,5 @@ class GameBoard {
     return board;
   }
 }
+
+export default GameBoard;
