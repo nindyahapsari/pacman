@@ -1,5 +1,5 @@
-export const GRID_SIZE = 20;
-export const CELL_SIZE = 20;
+export const GRID_SIZE = 5;
+export const CELL_SIZE = 5;
 
 export const OBJECT_TYPE = {
   BLANK: "blank",
@@ -18,7 +18,11 @@ export const CLASS_LIST = [
 ];
 
 export const LEVEL = [
-  1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 2, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1,
+  1, 1, 1, 1, 1, 
+  1, 2, 2, 2, 1, 
+  1, 1, 2, 1, 1, 
+  1, 2, 2, 2, 1, 
+  1, 1, 1, 1, 1,
 ];
 
 // export const DIRECTIONS = {
