@@ -27,7 +27,7 @@ class GameBoard {
       if (CLASS_LIST[square] === OBJECT_TYPE.DOT) this.dotCount++;
     });
 
-    console.log(this.grid);
+    console.log(this.grid)
   }
 
   static createGameBoard(DOMGrid, level) {
