@@ -1,4 +1,4 @@
-import { LEVEL, OBJECT_TYPE } from "./setup.js";
+import { FIRST_LEVEL, SECOND_LEVEL, OBJECT_TYPE } from "./setup.js";
 import { randomMovement } from "./ghostmoves.js";
 
 import GameBoard from "./GameBoard.js";
@@ -12,14 +12,23 @@ import Ghost from "./Ghost.js";
 // import soundGameOver from "./sounds/death.wav";
 // import soundGhost from "./sounds/eat_ghost.wav";
 
+const mazeTitle = document.querySelector("#maze-title");
 const gameGrid = document.querySelector("#game");
 const scoreDom = document.querySelector("#score");
 const startButton = document.querySelector("#start-button");
+const mazeButton = document.querySelector("#maze-button");
 
 const POWER_PILL_TIME = 10000;
 const GLOBAL_SPEED = 80;
 
-const gameBoard = GameBoard.createGameBoard(gameGrid, LEVEL);
+let level = FIRST_LEVEL;
+
+const gameBoard = GameBoard.createGameBoard(gameGrid, level);
+const mazeTitleText = document.createElement("h2");
+mazeTitleText.classList.add("maze-title-text");
+mazeTitleText.innerText = "Maze 1";
+mazeTitle.appendChild(mazeTitleText);
+// mazeTitle.innerText = "Maze 1";
 
 // Initial setup
 let score = 0;
@@ -28,10 +37,10 @@ let gameWin = false;
 let powerPillActive = false;
 let powerPillTimer = null;
 
-function playAudio(audio) {
-  const soundEffect = new Audio(audio);
-  soundEffect.play();
-}
+// function playAudio(audio) {
+//   const soundEffect = new Audio(audio);
+//   soundEffect.play();
+// }
 
 function gameOver(pacman, grid) {
   // playAudio(soundGameOver);
@@ -46,6 +55,7 @@ function gameOver(pacman, grid) {
 
   // show start button
   startButton.classList.remove("hide");
+  mazeButton.classList.remove("hide");
 }
 
 function checkCollision(pacman, ghosts) {
@@ -132,15 +142,14 @@ function gameLoop(pacman, ghosts) {
 }
 
 function startGame() {
-  console.log("start game");
-
   gameWin = false;
   powerPillActive = false;
   score = 0;
 
   startButton.classList.add("hide");
+  mazeButton.classList.add("hide");
 
-  gameBoard.createGrid(LEVEL);
+  gameBoard.createGrid(level);
 
   // init pacman stuff
   const pacman = new Pacman(2, 287);
@@ -160,4 +169,86 @@ function startGame() {
   timer = setInterval(() => gameLoop(pacman, ghosts), GLOBAL_SPEED);
 }
 
+function createOptionMaze(listOfOptions) {
+  const parentDiv = document.createElement("div");
+  parentDiv.classList.add("maze-container");
+
+  listOfOptions.forEach((option) => {
+    const { type, name, value, id, text } = option;
+
+    const optionInput = document.createElement("input");
+    optionInput.type = type;
+    optionInput.name = name;
+    optionInput.value = value;
+    optionInput.id = id;
+
+    const optionLabel = document.createElement("label");
+    optionLabel.htmlFor = id;
+    optionLabel.innerText = text;
+
+    const optionContainer = document.createElement("div");
+    optionContainer.appendChild(optionInput);
+    optionContainer.appendChild(optionLabel);
+
+    parentDiv.appendChild(optionContainer);
+  });
+
+  const buttonDiv = document.createElement("div");
+  const closeButton = document.createElement("button");
+  closeButton.classList.add("maze-option-button");
+  closeButton.innerText = "Close";
+  closeButton.addEventListener("click", () => {
+    gameGrid.removeChild(parentDiv);
+  });
+
+  const okayButton = document.createElement("button");
+  okayButton.classList.add("maze-option-button");
+  okayButton.innerText = "Okay";
+  okayButton.addEventListener("click", () => {
+    const selectedOption = document.querySelector(
+      'input[name="maze-option"]:checked'
+    );
+    if (selectedOption) {
+      const selectedValue = selectedOption.value;
+      console.log("Selected Maze Option:", selectedValue);
+
+      // Perform maze change logic here
+      if (selectedValue === "1") {
+        level = FIRST_LEVEL;
+      } else if (selectedValue === "2") {
+        mazeTitleText.innerText = "Maze 2";
+        level = SECOND_LEVEL;
+      }
+
+      // Recreate the game board with the new maze
+      gameBoard.createGrid(level);
+    }
+  });
+
+  buttonDiv.appendChild(closeButton);
+  buttonDiv.appendChild(okayButton);
+
+  parentDiv.appendChild(buttonDiv);
+
+  gameGrid.appendChild(parentDiv);
+}
+
+const optionsMaze = [
+  {
+    type: "radio",
+    name: "maze-option",
+    value: "1",
+    id: "maze-option-1",
+    text: "Maze 1",
+  },
+  {
+    type: "radio",
+    name: "maze-option",
+    value: "2",
+    id: "maze-option-2",
+    text: "Maze 2",
+  },
+];
+
 startButton.addEventListener("click", startGame);
+mazeButton.addEventListener("click", () => createOptionMaze(optionsMaze));
