@@ -17,18 +17,18 @@ const gameGrid = document.querySelector("#game");
 const scoreDom = document.querySelector("#score");
 const startButton = document.querySelector("#start-button");
 const mazeButton = document.querySelector("#maze-button");
+const restartButton = document.querySelector("#restart-button");
 
 const POWER_PILL_TIME = 10000;
 const GLOBAL_SPEED = 80;
 
 let level = FIRST_LEVEL;
 
-const gameBoard = GameBoard.createGameBoard(gameGrid, level);
+let gameBoard = GameBoard.createGameBoard(gameGrid, level);
 const mazeTitleText = document.createElement("h2");
 mazeTitleText.classList.add("maze-title-text");
 mazeTitleText.innerText = "Maze 1";
 mazeTitle.appendChild(mazeTitleText);
-// mazeTitle.innerText = "Maze 1";
 
 // Initial setup
 let score = 0;
@@ -36,6 +36,29 @@ let timer = null;
 let gameWin = false;
 let powerPillActive = false;
 let powerPillTimer = null;
+
+restartButton.classList.add("hide");
+
+function restartGame(ghosts, pacman, collidedGhost) {
+  score = 0;
+  timer = null;
+  gameWin = false;
+  powerPillActive = false;
+  powerPillTimer = null;
+
+  document.removeEventListener("keydown", (e) => {
+    pacman.handleKeyInput(e, gameBoard.objectExist);
+  });
+
+  clearInterval(timer);
+
+  gameBoard = GameBoard.createGameBoard(gameGrid, level);
+  gameBoard.createGrid(level);
+
+  startButton.classList.remove("hide");
+  mazeButton.classList.remove("hide");
+  restartButton.classList.add("hide");
+}
 
 // function playAudio(audio) {
 //   const soundEffect = new Audio(audio);
@@ -148,6 +171,7 @@ function startGame() {
 
   startButton.classList.add("hide");
   mazeButton.classList.add("hide");
+  restartButton.classList.remove("hide");
 
   gameBoard.createGrid(level);
 
@@ -167,6 +191,11 @@ function startGame() {
   ];
 
   timer = setInterval(() => gameLoop(pacman, ghosts), GLOBAL_SPEED);
+
+  restartButton.addEventListener("click", () => {
+    clearInterval(timer);
+    restartGame(ghosts, pacman);
+  });
 }
 
 function createOptionMaze(listOfOptions) {
@@ -174,10 +203,11 @@ function createOptionMaze(listOfOptions) {
   parentDiv.classList.add("maze-container");
 
   listOfOptions.forEach((option) => {
-    const { type, name, value, id, text } = option;
+    const { type, defaultValue, name, value, id, text } = option;
 
     const optionInput = document.createElement("input");
     optionInput.type = type;
+    optionInput.default = defaultValue;
     optionInput.name = name;
     optionInput.value = value;
     optionInput.id = id;
@@ -215,6 +245,7 @@ function createOptionMaze(listOfOptions) {
       // Perform maze change logic here
       if (selectedValue === "1") {
         level = FIRST_LEVEL;
+        mazeTitleText.innerText = "Maze 1";
       } else if (selectedValue === "2") {
         mazeTitleText.innerText = "Maze 2";
         level = SECOND_LEVEL;
@@ -236,6 +267,7 @@ function createOptionMaze(listOfOptions) {
 const optionsMaze = [
   {
     type: "radio",
+    defaultValue: true,
     name: "maze-option",
     value: "1",
     id: "maze-option-1",
@@ -243,6 +275,7 @@ const optionsMaze = [
   },
   {
     type: "radio",
+    defaultValue: false,
     name: "maze-option",
     value: "2",
     id: "maze-option-2",
