@@ -7,6 +7,9 @@ const gameGrid = document.querySelector("#game");
 const scoreDom = document.querySelector("#score");
 const startButton = document.querySelector("#start-button");
 
+const POWER_PILL_TIME = 10000;
+const GLOBAL_SPEED = 80;
+
 const gameBoard = GameBoard.createGameBoard(gameGrid, LEVEL);
 
 // Initial setup
@@ -22,7 +25,9 @@ function gameOver() {}
 
 function checkCollision() {}
 
-function gameLoop() {}
+function gameLoop(pacman) {
+  gameBoard.moveCharacter(pacman);
+}
 
 function startGame() {
   console.log("start game");
@@ -38,6 +43,12 @@ function startGame() {
   // init pacman stuff
   const pacman = new Pacman(2, 287);
   gameBoard.addObject(287, [OBJECT_TYPE.PACMAN]);
+  document.addEventListener("keydown", (e) => {
+    console.log(e);
+    pacman.handleKeyInput(e, gameBoard.objectExist);
+  });
+
+  timer = setInterval(() => gameLoop(pacman), GLOBAL_SPEED);
 
   // array of ghosts
 }

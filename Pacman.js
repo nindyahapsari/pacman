@@ -50,7 +50,8 @@ class Pacman {
   handleKeyInput = (e, objectExist) => {
     let directions;
 
-    if (e.keycode >= 37 && e.keycode <= 40) {
+    // becareful case sensitive => keyCode
+    if (e.keyCode >= 37 && e.keyCode <= 40) {
       directions = DIRECTIONS[e.key];
     } else {
       return;
