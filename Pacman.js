@@ -37,10 +37,10 @@ class Pacman {
   }
 
   makeMovementInBoard() {
-    const classToRemove = [OBJECT_TYPE.PACMAN];
-    const classToAdd = [OBJECT_TYPE.PACMAN];
+    const classesToRemove = [OBJECT_TYPE.PACMAN];
+    const classesToAdd = [OBJECT_TYPE.PACMAN];
 
-    return { classToRemove, classToAdd };
+    return { classesToRemove, classesToAdd };
   }
 
   setNewPosition(nextMovePosition) {

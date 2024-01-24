@@ -7,7 +7,11 @@ class GameBoard {
     this.DOMGrid = DOMGrid;
   }
 
-  //   showGameStatus(gameWin) {}
+  showGameStatus(gameWin) {
+    const div = document.createElement("div");
+    div.classList.add("game-status");
+    div.innerHTML = `${gameWin ? "WIN!" : "GAME OVER!"}`;
+  }
 
   createGrid(level) {
     this.dotCount = 0;
@@ -46,22 +50,19 @@ class GameBoard {
 
   moveCharacter(character) {
     if (character.shouldMove()) {
-      console.log("move character");
       const { nextMovePosition, direction } = character.getNextMove(
         this.objectExist
       );
 
-      console.log(nextMovePosition, direction);
-
-      const { classToRemove, classToAdd } = character.makeMovementInBoard();
+      const { classesToRemove, classesToAdd } = character.makeMovementInBoard();
 
       if (character.rotation && nextMovePosition !== character.position) {
         this.rotateDiv(nextMovePosition, character.direction.rotation);
         this.rotateDiv(character.position, 0);
       }
 
-      this.removeObject(character.position, classToRemove);
-      this.addObject(nextMovePosition, classToAdd);
+      this.removeObject(character.position, classesToRemove);
+      this.addObject(nextMovePosition, classesToAdd);
 
       character.setNewPosition(nextMovePosition, direction);
     }
