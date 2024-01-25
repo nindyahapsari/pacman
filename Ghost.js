@@ -1,5 +1,4 @@
 import { DIRECTIONS, OBJECT_TYPE } from "./setup.js";
-import { randomMovement } from "./ghostmoves.js";
 
 class Ghost {
   constructor(speed = 5, startPosition, movement, name) {

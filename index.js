@@ -5,13 +5,6 @@ import GameBoard from "./GameBoard.js";
 import Pacman from "./Pacman.js";
 import Ghost from "./Ghost.js";
 
-// Sounds
-// import soundDot from "./sounds/munch.wav";
-// import soundPill from "./sounds/pill.wav";
-// import soundGameStart from "./sounds/game_start.wav";
-// import soundGameOver from "./sounds/death.wav";
-// import soundGhost from "./sounds/eat_ghost.wav";
-
 const mazeTitle = document.querySelector("#maze-title");
 const gameGrid = document.querySelector("#game");
 const scoreDom = document.querySelector("#score");
@@ -20,7 +13,7 @@ const mazeButton = document.querySelector("#maze-button");
 const restartButton = document.querySelector("#restart-button");
 
 const POWER_PILL_TIME = 10000;
-const GLOBAL_SPEED = 100;
+const GLOBAL_SPEED = 80; // 80 seems to not crash the while loop but still try more test
 
 let level = FIRST_LEVEL;
 
@@ -63,11 +56,6 @@ function restartGame(ghosts, pacman, collidedGhost) {
   mazeButton.classList.remove("hide");
   restartButton.classList.add("hide");
 }
-
-// function playAudio(audio) {
-//   const soundEffect = new Audio(audio);
-//   soundEffect.play();
-// }
 
 function gameOver(pacman, grid) {
   // playAudio(soundGameOver);

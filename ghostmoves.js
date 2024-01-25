@@ -7,6 +7,9 @@ export function randomMovement(position, direction, objectExist) {
   // Create an array from the diretions objects keys
   const keys = Object.keys(DIRECTIONS);
 
+  // need to becareful w while loop
+  //it might goes to infinite loop
+  // keep GLOBAL_SPEED low to 80
   while (
     objectExist(nextMovePosition, OBJECT_TYPE.WALL) ||
     objectExist(nextMovePosition, OBJECT_TYPE.GHOST)
