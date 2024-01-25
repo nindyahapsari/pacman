@@ -2,6 +2,8 @@
 
 This is a simple implementation of the classic Pacman game using JavaScript.
 
+![Screenshot from 2024-01-25 19-19-33](https://github.com/nindyahapsari/pacman-retro-game/assets/38020437/03e01270-28f7-47d9-8cb5-a7e9e7323c7e)
+
 ## Features
 
 - Pacman character that can move in four directions
