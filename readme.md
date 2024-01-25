@@ -10,6 +10,7 @@ This is a simple implementation of the classic Pacman game using JavaScript.
 - Ghosts that move randomly
 - Score tracking
 - Restart functionality
+- Option to choose maze
 
 ## How to Run
 
@@ -23,7 +24,9 @@ Use the arrow keys to move Pacman.
 
 - `index.js`: This is the main JavaScript file that contains the game logic.
 - `Ghost.js`: This file defines the Ghost class.
+- `ghostmoves.js`: This file defines the Ghost random movement.
 - `Pacman.js`: This file defines the Pacman class.
+- `Setup.js`: This file contains all the init data.
 
 The game loop is run using `setInterval` and updates the game state at a regular interval.
 
@@ -32,4 +35,5 @@ The game loop is run using `setInterval` and updates the game state at a regular
 - Add more ghosts
 - Implement different ghost behaviors
 - Add power-ups for Pacman
+- Add more maze
 
