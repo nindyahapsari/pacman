@@ -20,7 +20,7 @@ const mazeButton = document.querySelector("#maze-button");
 const restartButton = document.querySelector("#restart-button");
 
 const POWER_PILL_TIME = 10000;
-const GLOBAL_SPEED = 80;
+const GLOBAL_SPEED = 100;
 
 let level = FIRST_LEVEL;
 
@@ -38,6 +38,10 @@ let powerPillActive = false;
 let powerPillTimer = null;
 
 restartButton.classList.add("hide");
+
+window.addEventListener("beforeunload", () => {
+  clearInterval(timer);
+});
 
 function restartGame(ghosts, pacman, collidedGhost) {
   score = 0;

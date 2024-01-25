@@ -8,6 +8,7 @@ class Pacman {
     this.timer = 0;
     this.powerPill = false;
     this.rotation = true;
+    this.cooldown = false;
   }
 
   shouldMove() {
@@ -48,9 +49,13 @@ class Pacman {
   }
 
   handleKeyInput = (e, objectExist) => {
+    if (this.cooldown) return;
+
     let directions;
 
     // becareful case sensitive => keyCode
+    // to much key pressing will make the game freeze
+    // causing too much func call in the stack
     if (e.keyCode >= 37 && e.keyCode <= 40) {
       directions = DIRECTIONS[e.key];
     } else {
@@ -60,6 +65,9 @@ class Pacman {
     const nextMovePosition = this.position + directions.movement;
     if (objectExist(nextMovePosition, OBJECT_TYPE.WALL)) return;
     this.direction = directions;
+
+    this.cooldown = true;
+    setTimeout(() => (this.cooldown = false), 500);
   };
 }
 
