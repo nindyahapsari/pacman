@@ -37,3 +37,14 @@ The game loop is run using `setInterval` and updates the game state at a regular
 - Add power-ups for Pacman
 - Add more maze
 
+## Reporting Bugs or Issues
+
+If you encounter any bugs or issues while playing the game, please open a ticket so we can address it. Here's how you can do that:
+
+1. Go to the [Issues](https://github.com/nindyahapsari/pacman-retro-game/issues) tab of the GitHub repository.
+2. Click on the "New issue" button.
+3. Enter a title for your issue. Try to make it as descriptive as possible.
+4. In the description, provide as much detail as you can about the issue. Include things like what you were doing when the issue occurred, the behavior you expected, and the behavior you observed. If possible, include steps to reproduce the issue.
+5. Click "Submit new issue" to create the ticket.
+
+We appreciate your help in improving the game!

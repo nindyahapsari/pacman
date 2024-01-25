@@ -232,7 +232,6 @@ function createOptionMaze(listOfOptions) {
     );
     if (selectedOption) {
       const selectedValue = selectedOption.value;
-      console.log("Selected Maze Option:", selectedValue);
 
       // Perform maze change logic here
       if (selectedValue === "1") {
