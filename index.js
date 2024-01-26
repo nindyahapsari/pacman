@@ -18,6 +18,7 @@ const GLOBAL_SPEED = 80; // 80 seems to not crash the while loop but still try m
 let level = FIRST_LEVEL;
 
 let gameBoard = GameBoard.createGameBoard(gameGrid, level);
+
 const mazeTitleText = document.createElement("h2");
 mazeTitleText.classList.add("maze-title-text");
 mazeTitleText.innerText = "Maze 1";
